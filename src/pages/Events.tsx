@@ -30,26 +30,37 @@ export default function Events({ onEditName }: { onEditName: () => void }) {
 
   const sortedEvents = [...events].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  const handleShare = async (event: Event) => {
+  const handleShare = (event: Event) => {
     const eventMembers = members.filter((m) => event.memberIds.includes(m.id));
-    const eventDate = format(new Date(event.date), "dd/MM 'às' HH:mm");
+    const eventDate = format(new Date(event.date), "dd/MM/yyyy 'às' HH:mm");
     
-    const text = `🎶 ${event.title} - ${event.type}
-📅 ${eventDate}
-📍 Local: ${event.local}
-${event.songs && event.songs.length > 0 ? `🎵 Músicas: ${event.songs.join(", ")}\n` : ""}${eventMembers.length > 0 ? `👥 Membros: ${eventMembers.map(m => m.name).join(", ")}` : ""}`;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: "Agenda de Louvor", text });
-        toast.success("Compartilhado com sucesso!");
-      } catch (error) {
-        console.error("Error sharing:", error);
-      }
-    } else {
-      navigator.clipboard.writeText(text);
-      toast.success("Texto copiado para a área de transferência!");
+    let text = `*🎶 ${event.title}*\n`;
+    text += `📋 Tipo: ${event.type}\n`;
+    text += `📅 Data: ${eventDate}\n`;
+    text += `📍 Local: ${event.local}\n`;
+    text += `✅ Status: ${event.status}\n`;
+    
+    if (event.description) {
+      text += `\n📝 Descrição:\n${event.description}\n`;
     }
+    
+    if (event.songs && event.songs.length > 0) {
+      text += `\n🎵 *Músicas:*\n`;
+      event.songs.forEach((song, index) => {
+        text += `${index + 1}. ${song}\n`;
+      });
+    }
+    
+    if (eventMembers.length > 0) {
+      text += `\n👥 *Membros Escalados:*\n`;
+      eventMembers.forEach((member) => {
+        text += `• ${member.name} - ${member.role}\n`;
+      });
+    }
+    
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, '_blank');
+    toast.success("Abrindo WhatsApp...");
   };
 
   const handleEdit = (event: Event) => {
