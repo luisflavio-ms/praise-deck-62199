@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { toast } from "sonner";
 import { 
   Calendar, 
   Users, 
@@ -14,12 +17,16 @@ import {
   Heart,
   Smartphone,
   ListChecks,
-  Zap
+  Zap,
+  CreditCard,
+  Shield,
+  Lock
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 export default function Landing() {
-  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
 
   const benefits = [
     {
@@ -99,6 +106,16 @@ export default function Landing() {
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handlePurchase = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !email.trim()) {
+      toast.error("Por favor, preencha todos os campos");
+      return;
+    }
+    toast.success("Redirecionando para o pagamento...");
+    // Aqui você pode integrar com Stripe ou outro gateway de pagamento
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -118,8 +135,8 @@ export default function Landing() {
             >
               Como funciona
             </Button>
-            <Button onClick={() => navigate("/")}>
-              Acessar App
+            <Button onClick={() => scrollToSection('comprar')} variant="default">
+              Comprar Agora
             </Button>
           </div>
         </div>
@@ -147,10 +164,10 @@ export default function Landing() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button 
                   size="lg" 
-                  onClick={() => navigate("/")}
+                  onClick={() => scrollToSection('comprar')}
                   className="text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-shadow"
                 >
-                  Acessar o LouvorApp
+                  Garantir Meu Acesso
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <Button 
@@ -162,6 +179,9 @@ export default function Landing() {
                   Ver como funciona
                 </Button>
               </div>
+              <p className="mt-6 text-sm text-muted-foreground flex items-center justify-center lg:justify-start gap-2">
+                <Lock className="h-4 w-4" /> Pagamento 100% seguro
+              </p>
             </div>
             
             <div className="relative">
@@ -316,6 +336,177 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Purchase Section */}
+      <section id="comprar" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <Badge className="mb-4" variant="secondary">
+              🎉 Oferta Especial
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+              Adquira o LouvorApp Hoje
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Investimento único para organizar seu ministério para sempre
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
+            {/* Pricing Card */}
+            <Card className="p-8 lg:sticky lg:top-24 border-2 border-primary/20 shadow-xl">
+              <div className="text-center mb-8">
+                <div className="inline-block p-4 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full mb-4">
+                  <Music className="h-16 w-16 text-primary" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">LouvorApp Completo</h3>
+                <p className="text-muted-foreground mb-6">
+                  Acesso vitalício a todas as funcionalidades
+                </p>
+                
+                <div className="mb-8">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <span className="text-lg text-muted-foreground line-through">R$ 49,90</span>
+                    <Badge variant="destructive">40% OFF</Badge>
+                  </div>
+                  <div className="text-5xl font-bold text-primary mb-2">
+                    R$ 29,90
+                  </div>
+                  <p className="text-muted-foreground">pagamento único • sem mensalidades</p>
+                </div>
+
+                <div className="space-y-3 text-left mb-8">
+                  {[
+                    "Gestão ilimitada de eventos",
+                    "Cadastro ilimitado de membros",
+                    "Organização de repertório",
+                    "Compartilhamento WhatsApp",
+                    "Funciona 100% offline",
+                    "Atualizações gratuitas",
+                    "Suporte por e-mail",
+                    "Acesso vitalício"
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="space-y-3 p-4 bg-muted/50 rounded-xl text-sm">
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Shield className="h-4 w-4" />
+                    <span>Garantia de 7 dias</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Lock className="h-4 w-4" />
+                    <span>Pagamento 100% seguro</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <CreditCard className="h-4 w-4" />
+                    <span>Cartão, Pix ou Boleto</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Checkout Form */}
+            <Card className="p-8 shadow-xl">
+              <h3 className="text-2xl font-bold mb-6">Complete sua compra</h3>
+              <form onSubmit={handlePurchase} className="space-y-6">
+                <div>
+                  <Label htmlFor="name">Nome completo *</Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Digite seu nome completo"
+                    required
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="email">E-mail *</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="seu@email.com"
+                    required
+                    className="mt-2"
+                  />
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Enviaremos o acesso para este e-mail
+                  </p>
+                </div>
+
+                <div className="border-t border-border pt-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-muted-foreground">LouvorApp</span>
+                    <span className="font-semibold">R$ 29,90</span>
+                  </div>
+                  <div className="flex justify-between items-center text-lg font-bold mb-6">
+                    <span>Total</span>
+                    <span className="text-primary">R$ 29,90</span>
+                  </div>
+                </div>
+
+                <Button 
+                  type="submit" 
+                  size="lg" 
+                  className="w-full text-lg py-6"
+                >
+                  <Lock className="mr-2 h-5 w-5" />
+                  Finalizar Compra
+                </Button>
+
+                <div className="text-center space-y-2">
+                  <p className="text-sm text-muted-foreground">
+                    🔒 Seus dados estão seguros e protegidos
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Ao finalizar a compra, você concorda com nossos termos de uso
+                  </p>
+                </div>
+              </form>
+            </Card>
+          </div>
+
+          {/* Trust Badges */}
+          <div className="mt-16 grid sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="inline-block p-3 bg-primary/10 rounded-full mb-3">
+                <Shield className="h-8 w-8 text-primary" />
+              </div>
+              <h4 className="font-semibold mb-2">Garantia de 7 dias</h4>
+              <p className="text-sm text-muted-foreground">
+                Não gostou? Devolvemos 100% do seu dinheiro
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="inline-block p-3 bg-primary/10 rounded-full mb-3">
+                <Lock className="h-8 w-8 text-primary" />
+              </div>
+              <h4 className="font-semibold mb-2">Pagamento Seguro</h4>
+              <p className="text-sm text-muted-foreground">
+                Ambiente 100% protegido e criptografado
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="inline-block p-3 bg-primary/10 rounded-full mb-3">
+                <Heart className="h-8 w-8 text-primary" />
+              </div>
+              <h4 className="font-semibold mb-2">Suporte Dedicado</h4>
+              <p className="text-sm text-muted-foreground">
+                Estamos aqui para ajudar você sempre
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
         <div className="max-w-4xl mx-auto text-center">
@@ -325,21 +516,21 @@ export default function Landing() {
             </div>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            Comece hoje — organize seu ministério com o LouvorApp
+            Transforme a organização do seu ministério hoje
           </h2>
           <p className="text-xl text-muted-foreground mb-8">
-            Gratuito, leve e pronto para usar. Nenhum cadastro necessário.
+            Junte-se a centenas de ministérios que já estão usando o LouvorApp
           </p>
           <Button 
             size="lg" 
-            onClick={() => navigate("/")}
+            onClick={() => scrollToSection('comprar')}
             className="text-lg px-12 py-6 shadow-xl hover:shadow-2xl transition-shadow"
           >
-            Acessar agora
+            Garantir Meu Acesso Agora
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           <p className="mt-6 text-sm text-muted-foreground">
-            ✓ Funciona em qualquer dispositivo  •  ✓ Dados salvos localmente  •  ✓ Compartilhamento WhatsApp
+            ✓ Pagamento único de R$ 29,90  •  ✓ Garantia de 7 dias  •  ✓ Acesso imediato
           </p>
         </div>
       </section>
