@@ -1,5 +1,5 @@
-import { Music, User } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import logo from "@/assets/logo.png";
 
 interface HeaderProps {
   userName: string;
@@ -20,8 +20,7 @@ export function Header({ userName, title, subtitle }: HeaderProps) {
       <div className="max-w-screen-xl mx-auto px-4 py-3">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <Music className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold">BandLy</span>
+            <img src={logo} alt="BandLy Logo" className="h-8 w-auto" />
           </div>
           <div className="flex items-center gap-2">
             <Avatar className="h-8 w-8">
