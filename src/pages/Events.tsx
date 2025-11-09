@@ -126,13 +126,12 @@ ${event.songs && event.songs.length > 0 ? `🎵 Músicas: ${event.songs.join(", 
         userName={userName}
         title="Eventos"
         subtitle={`${events.length} eventos cadastrados`}
+        action={
+          <Button size="icon" onClick={() => { resetForm(); setIsDialogOpen(true); }}>
+            <Plus className="h-4 w-4" />
+          </Button>
+        }
       />
-      <div className="max-w-screen-xl mx-auto px-4 py-4 flex justify-end">
-        <Button onClick={() => { resetForm(); setIsDialogOpen(true); }}>
-          <Plus className="h-4 w-4 mr-2" />
-          Novo Evento
-        </Button>
-      </div>
 
       <main className="max-w-screen-xl mx-auto px-4 py-6 space-y-4">
         {sortedEvents.length === 0 ? (

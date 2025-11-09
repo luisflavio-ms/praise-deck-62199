@@ -5,9 +5,10 @@ interface HeaderProps {
   userName: string;
   title?: string;
   subtitle?: string;
+  action?: React.ReactNode;
 }
 
-export function Header({ userName, title, subtitle }: HeaderProps) {
+export function Header({ userName, title, subtitle, action }: HeaderProps) {
   const userInitials = userName
     .split(" ")
     .map((n) => n[0])
@@ -32,9 +33,12 @@ export function Header({ userName, title, subtitle }: HeaderProps) {
           </div>
         </div>
         {(title || subtitle) && (
-          <div>
-            {title && <h1 className="text-2xl font-bold">{title}</h1>}
-            {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              {title && <h1 className="text-2xl font-bold">{title}</h1>}
+              {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
+            </div>
+            {action && <div>{action}</div>}
           </div>
         )}
       </div>
