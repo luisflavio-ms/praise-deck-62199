@@ -214,6 +214,33 @@ ${event.songs && event.songs.length > 0 ? `🎵 Músicas: ${event.songs.join(", 
               />
             </div>
             <div>
+              <Label>Membros Participantes</Label>
+              <div className="border rounded-lg p-3 max-h-48 overflow-y-auto space-y-2 bg-background">
+                {members.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">Nenhum membro cadastrado</p>
+                ) : (
+                  members.map((member) => (
+                    <label key={member.id} className="flex items-center gap-2 cursor-pointer hover:bg-muted/50 p-2 rounded">
+                      <input
+                        type="checkbox"
+                        checked={formData.memberIds.includes(member.id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFormData({ ...formData, memberIds: [...formData.memberIds, member.id] });
+                          } else {
+                            setFormData({ ...formData, memberIds: formData.memberIds.filter(id => id !== member.id) });
+                          }
+                        }}
+                        className="h-4 w-4 rounded border-input"
+                      />
+                      <span className="text-sm flex-1">{member.name}</span>
+                      <span className="text-xs text-muted-foreground">{member.role}</span>
+                    </label>
+                  ))
+                )}
+              </div>
+            </div>
+            <div>
               <Label htmlFor="status">Status</Label>
               <Select value={formData.status} onValueChange={(value: EventStatus) => setFormData({ ...formData, status: value })}>
                 <SelectTrigger>
