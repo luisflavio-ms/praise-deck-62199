@@ -187,12 +187,21 @@ export default function Landing() {
             <div className="relative flex justify-center lg:justify-end">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 blur-3xl" />
               
-              <div className="relative animate-[float_6s_ease-in-out_infinite]">
-                <img 
-                  src={screenshotMembers} 
-                  alt="Tela de membros do BandLy" 
-                  className="w-[280px] sm:w-[340px] rounded-3xl shadow-2xl border-4 border-border/30"
-                />
+              <div className="relative">
+                <div className="animate-[float_6s_ease-in-out_infinite]">
+                  <img 
+                    src={screenshotHome} 
+                    alt="Tela de eventos do BandLy" 
+                    className="w-[280px] sm:w-[340px] rounded-3xl shadow-2xl border-4 border-border/30"
+                  />
+                </div>
+                <div className="absolute -right-8 top-20 animate-[float_6s_ease-in-out_infinite] [animation-delay:1s]">
+                  <img 
+                    src={screenshotMembers} 
+                    alt="Tela de membros do BandLy" 
+                    className="w-[240px] sm:w-[280px] rounded-3xl shadow-2xl border-4 border-border/30 opacity-90"
+                  />
+                </div>
               </div>
             </div>
           </div>
