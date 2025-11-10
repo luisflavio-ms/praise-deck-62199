@@ -189,35 +189,15 @@ export default function Landing() {
               
               {/* iPhone Mockup */}
               <div className="relative">
-                <div className="w-[280px] sm:w-[320px] relative">
-                  {/* iPhone Frame */}
+                <div className="w-[280px] sm:w-[320px]">
                   <div className="relative bg-black rounded-[3rem] p-3 shadow-2xl border-8 border-black">
-                    {/* Notch */}
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-3xl z-10" />
-                    
-                    {/* Screenshots Container */}
                     <div className="relative overflow-hidden rounded-[2.5rem] bg-white">
-                      <div className="flex animate-[slide-in-right_20s_ease-in-out_infinite]">
-                        <img 
-                          src={screenshotHome} 
-                          alt="Tela de eventos do BandLy" 
-                          className="w-full h-auto object-cover"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Second iPhone - slightly offset */}
-                  <div className="absolute -right-4 top-12 w-[280px] sm:w-[320px] opacity-60">
-                    <div className="relative bg-black rounded-[3rem] p-3 shadow-2xl border-8 border-black">
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-3xl z-10" />
-                      <div className="relative overflow-hidden rounded-[2.5rem] bg-white">
-                        <img 
-                          src={screenshotMembers} 
-                          alt="Tela de membros do BandLy" 
-                          className="w-full h-auto object-cover"
-                        />
-                      </div>
+                      <img 
+                        src={screenshotMembers} 
+                        alt="Tela de membros do BandLy" 
+                        className="w-full h-auto object-cover"
+                      />
                     </div>
                   </div>
                 </div>
