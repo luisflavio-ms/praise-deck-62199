@@ -18,6 +18,8 @@ import {
   Lock
 } from "lucide-react";
 import logo from "@/assets/logo.png";
+import screenshotHome from "@/assets/screenshot-home.jpg";
+import screenshotMembers from "@/assets/screenshot-members.jpg";
 
 export default function Landing() {
   const CHECKOUT_URL = "https://pay.kiwify.com.br/seu-link-aqui"; // Substitua pelo seu link de checkout
@@ -182,29 +184,40 @@ export default function Landing() {
               </p>
             </div>
             
-            <div className="relative">
+            <div className="relative flex justify-center lg:justify-end">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 blur-3xl" />
-              <div className="relative bg-gradient-to-br from-card to-muted p-8 rounded-3xl shadow-2xl border border-border/50">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 p-4 bg-background rounded-xl">
-                    <Calendar className="h-6 w-6 text-primary" />
-                    <div className="flex-1">
-                      <div className="h-4 bg-muted rounded w-3/4 mb-2" />
-                      <div className="h-3 bg-muted/50 rounded w-1/2" />
+              
+              {/* iPhone Mockup */}
+              <div className="relative">
+                <div className="w-[280px] sm:w-[320px] relative">
+                  {/* iPhone Frame */}
+                  <div className="relative bg-black rounded-[3rem] p-3 shadow-2xl border-8 border-black">
+                    {/* Notch */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-3xl z-10" />
+                    
+                    {/* Screenshots Container */}
+                    <div className="relative overflow-hidden rounded-[2.5rem] bg-white">
+                      <div className="flex animate-[slide-in-right_20s_ease-in-out_infinite]">
+                        <img 
+                          src={screenshotHome} 
+                          alt="Tela de eventos do BandLy" 
+                          className="w-full h-auto object-cover"
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-4 bg-background rounded-xl">
-                    <Users className="h-6 w-6 text-secondary" />
-                    <div className="flex-1">
-                      <div className="h-4 bg-muted rounded w-2/3 mb-2" />
-                      <div className="h-3 bg-muted/50 rounded w-1/3" />
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-background rounded-xl">
-                    <Music className="h-6 w-6 text-primary" />
-                    <div className="flex-1">
-                      <div className="h-4 bg-muted rounded w-4/5 mb-2" />
-                      <div className="h-3 bg-muted/50 rounded w-2/5" />
+                  
+                  {/* Second iPhone - slightly offset */}
+                  <div className="absolute -right-4 top-12 w-[280px] sm:w-[320px] opacity-60">
+                    <div className="relative bg-black rounded-[3rem] p-3 shadow-2xl border-8 border-black">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-3xl z-10" />
+                      <div className="relative overflow-hidden rounded-[2.5rem] bg-white">
+                        <img 
+                          src={screenshotMembers} 
+                          alt="Tela de membros do BandLy" 
+                          className="w-full h-auto object-cover"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
