@@ -102,8 +102,11 @@ export default function Landing() {
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleCheckout = () => {
-    window.open(CHECKOUT_URL, '_blank');
+  const onBuy = () => {
+    if ((window as any)?.fbq) {
+      (window as any).fbq("track", "InitiateCheckout");
+    }
+    window.location.href = "https://pay.cakto.com.br/k6wwxva_641778";
   };
 
   return (
@@ -130,7 +133,7 @@ export default function Landing() {
             >
               Como funciona
             </Button>
-            <Button onClick={handleCheckout} variant="default">
+            <Button onClick={onBuy} variant="default">
               Comprar Agora
             </Button>
           </div>
@@ -164,7 +167,7 @@ export default function Landing() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button 
                   size="lg" 
-                  onClick={handleCheckout}
+                  onClick={onBuy}
                   className="text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-shadow"
                 >
                   Garantir Meu Acesso
@@ -393,7 +396,7 @@ export default function Landing() {
 
               <Button 
                 size="lg" 
-                onClick={handleCheckout}
+                onClick={onBuy}
                 className="w-full sm:w-auto text-lg px-12 py-6 mb-4 animate-pulse shadow-lg hover:shadow-xl"
               >
                 <Lock className="mr-2 h-5 w-5" />
@@ -438,7 +441,7 @@ export default function Landing() {
           </p>
           <Button 
             size="lg" 
-            onClick={handleCheckout}
+            onClick={onBuy}
             className="text-lg px-12 py-6 shadow-xl hover:shadow-2xl transition-shadow"
           >
             Garantir Meu Acesso Agora
