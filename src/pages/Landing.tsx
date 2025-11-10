@@ -15,7 +15,8 @@ import {
   ListChecks,
   Zap,
   Shield,
-  Lock
+  Lock,
+  MessageCircle
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import screenshotHome from "@/assets/screenshot-home.jpg";
@@ -107,6 +108,13 @@ export default function Landing() {
       (window as any).fbq("track", "InitiateCheckout");
     }
     window.location.href = "https://pay.cakto.com.br/k6wwxva_641778";
+  };
+
+  const handleWhatsAppClick = () => {
+    const phoneNumber = "5537984028177";
+    const message = "Olá! Preciso de ajuda com o BandLy.";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
   };
 
   return (
@@ -472,6 +480,18 @@ export default function Landing() {
           </div>
         </div>
       </footer>
+
+      {/* WhatsApp Floating Button */}
+      <button
+        onClick={handleWhatsAppClick}
+        className="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full p-4 shadow-2xl hover:shadow-[0_0_30px_rgba(37,211,102,0.5)] transition-all duration-300 hover:scale-110 animate-pulse group"
+        aria-label="Suporte WhatsApp"
+      >
+        <MessageCircle className="h-7 w-7" />
+        <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-gray-900 text-white text-sm px-3 py-2 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          Precisa de ajuda?
+        </span>
+      </button>
     </div>
   );
 }
