@@ -22,7 +22,7 @@ import screenshotHome from "@/assets/screenshot-home.jpg";
 import screenshotMembers from "@/assets/screenshot-members.jpg";
 
 export default function Landing() {
-  const CHECKOUT_URL = "https://pay.kiwify.com.br/seu-link-aqui"; // Substitua pelo seu link de checkout
+  const CHECKOUT_URL = "https://pay.cakto.com.br/k6wwxva_641778";
 
   const benefits = [
     {
@@ -187,20 +187,12 @@ export default function Landing() {
             <div className="relative flex justify-center lg:justify-end">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 blur-3xl" />
               
-              {/* iPhone Mockup */}
-              <div className="relative">
-                <div className="w-[280px] sm:w-[320px]">
-                  <div className="relative bg-black rounded-[3rem] p-3 shadow-2xl border-8 border-black">
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-3xl z-10" />
-                    <div className="relative overflow-hidden rounded-[2.5rem] bg-white">
-                      <img 
-                        src={screenshotMembers} 
-                        alt="Tela de membros do BandLy" 
-                        className="w-full h-auto object-cover"
-                      />
-                    </div>
-                  </div>
-                </div>
+              <div className="relative animate-[float_6s_ease-in-out_infinite]">
+                <img 
+                  src={screenshotMembers} 
+                  alt="Tela de membros do BandLy" 
+                  className="w-[280px] sm:w-[340px] rounded-3xl shadow-2xl border-4 border-border/30"
+                />
               </div>
             </div>
           </div>
