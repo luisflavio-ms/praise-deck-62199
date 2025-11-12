@@ -27,6 +27,13 @@ import {
   Gift
 } from "lucide-react";
 import { useEffect, useState } from "react";
+
+declare global {
+  interface Window {
+    fbq?: (action: string, event: string) => void;
+  }
+}
+
 import logo from "@/assets/logo.png";
 import screenshotHome from "@/assets/screenshot-home.jpg";
 import screenshotMembers from "@/assets/screenshot-members.jpg";
@@ -136,8 +143,10 @@ export default function Landing() {
   };
 
   const handleDiscountAccept = () => {
-    setShowDiscountModal(false);
-    onBuy();
+    if (window?.fbq) {
+      window.fbq("track", "InitiateCheckout");
+    }
+    window.location.href = "https://pay.cakto.com.br/3f8wpvp";
   };
 
   return (
