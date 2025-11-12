@@ -1,6 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { 
   Calendar, 
   Users, 
@@ -16,14 +23,25 @@ import {
   Zap,
   Shield,
   Lock,
-  MessageCircle
+  MessageCircle,
+  Gift
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import logo from "@/assets/logo.png";
 import screenshotHome from "@/assets/screenshot-home.jpg";
 import screenshotMembers from "@/assets/screenshot-members.jpg";
 
 export default function Landing() {
   const CHECKOUT_URL = "https://pay.cakto.com.br/k6wwxva_641778";
+  const [showDiscountModal, setShowDiscountModal] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowDiscountModal(true);
+    }, 60000); // 1 minuto
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const benefits = [
     {
@@ -117,8 +135,52 @@ export default function Landing() {
     window.open(whatsappUrl, "_blank");
   };
 
+  const handleDiscountAccept = () => {
+    setShowDiscountModal(false);
+    onBuy();
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      {/* Discount Modal */}
+      <Dialog open={showDiscountModal} onOpenChange={setShowDiscountModal}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="mx-auto mb-4 p-4 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full w-fit">
+              <Gift className="h-12 w-12 text-primary" />
+            </div>
+            <DialogTitle className="text-2xl text-center">
+              🎁 Oferta Exclusiva Para Você!
+            </DialogTitle>
+            <DialogDescription className="text-center text-base pt-2">
+              Você ganhou um cupom especial de <span className="text-primary font-bold text-lg">R$ 10,00 OFF</span>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="bg-gradient-to-r from-primary/10 to-secondary/10 p-6 rounded-lg text-center border-2 border-primary/20">
+              <p className="text-sm text-muted-foreground mb-2">De R$ 29,90 por apenas</p>
+              <p className="text-4xl font-bold text-primary mb-2">R$ 19,90</p>
+              <p className="text-sm text-muted-foreground">Pagamento único • Sem mensalidades</p>
+            </div>
+            <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-3 text-center">
+              <p className="text-sm font-semibold text-destructive">
+                ⚡ Aproveite AGORA! Esta oferta expira em breve
+              </p>
+            </div>
+            <Button 
+              onClick={handleDiscountAccept}
+              className="w-full text-lg py-6 animate-pulse"
+              size="lg"
+            >
+              <Lock className="mr-2 h-5 w-5" />
+              Comprar Agora por R$ 19,90
+            </Button>
+            <p className="text-xs text-center text-muted-foreground">
+              💳 Pagamento 100% seguro • 🔒 Garantia de 7 dias
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
       {/* Urgency Banner */}
       <div className="bg-gradient-to-r from-primary to-secondary text-primary-foreground py-2 text-center text-sm font-medium animate-fade-in">
         ⚡ ÚLTIMAS VAGAS DISPONÍVEIS • Oferta por tempo limitado • Garanta seu acesso agora!
